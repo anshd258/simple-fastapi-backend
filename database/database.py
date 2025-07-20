@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # MongoDB connection setup
-MONGO_URL = os.getenv("MONGO_URL")
+MONGO_URL = os.environ.get("MONGO_URL")
+print(f'MONGO_URL: {os.environ.items()}')
 client = MongoClient(MONGO_URL)
 database = client['hronedb']
 

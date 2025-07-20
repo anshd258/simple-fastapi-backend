@@ -4,18 +4,17 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /code
 
+# Copy requirements first for better caching
 COPY ./requirements.txt /code/requirements.txt
-# Install system dependencies if needed
+
+# Install dependencies
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-COPY ./ ./code/
-
 # Copy application code
-COPY . .
-
+COPY . /code/
 
 # Expose the port FastAPI runs on
 EXPOSE 8000
 
-# Command to run the application
+# Command to run the application with host binding
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
